@@ -20,6 +20,26 @@ function App() {
         setIsVisible(true)
     }, [])
 
+    useEffect(() => {
+        fetch("https://api.indexnow.org/v1/index", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                host: "www.example.org",
+                key: "611a39d1155946339122a09cd26ce0d7",
+                keyLocation:
+                    "https://suryanshparashar.com/611a39d1155946339122a09cd26ce0d7.txt",
+                urlList: [
+                    "https://suryanshparashar.com/",
+                    // "https://www.example.org/folder/url2",
+                    // "https://www.example.org/url3"
+                ],
+            }),
+        })
+    })
+
     // const handleEmailSubmit = (e: React.FormEvent) => {
     //     e.preventDefault()
     //     // Handle email submission here
@@ -219,7 +239,8 @@ function App() {
                         </div>
                         <div className="mt-6 pt-6 border-t border-white/10">
                             <p className="text-gray-500 text-sm">
-                                © {new Date().getFullYear()} Suryansh Parashar. All rights reserved.
+                                © {new Date().getFullYear()} Suryansh Parashar.
+                                All rights reserved.
                             </p>
                         </div>
                     </div>
