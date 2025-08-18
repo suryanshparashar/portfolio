@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import { useState, useEffect } from "react"
 import {
     Code2,
     Database,
@@ -33,7 +33,8 @@ function App() {
         { name: "Express.js", icon: Server, color: "text-gray-700" },
         { name: "React", icon: Code2, color: "text-blue-600" },
         { name: "Node.js", icon: Globe, color: "text-green-700" },
-        { name: "LangChain", icon: Brain, color: "text-purple-600" },
+        // { name: "LangChain", icon: Brain, color: "text-purple-600" },
+        { name: "AI", icon: Brain, color: "text-purple-600" },
     ]
 
     return (
@@ -116,7 +117,8 @@ function App() {
                             </span>{" "}
                             and building intelligent applications powered by{" "}
                             <span className="text-purple-400 font-semibold">
-                                LangChain
+                                {/* LangChain */}
+                                Artificial Intelligence
                             </span>
                         </p>
 
@@ -225,7 +227,7 @@ function App() {
             </div>
 
             {/* Custom Styles */}
-            <style jsx>{`
+            <style>{`
                 @keyframes float {
                     0%,
                     100% {
