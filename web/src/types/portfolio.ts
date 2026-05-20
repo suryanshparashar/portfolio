@@ -7,6 +7,12 @@ export interface Project {
     image: string;
     githubUrl?: string;
     liveUrl?: string;
+    role?: string;
+    qaCredentials?: {
+        username: string;
+        password: string;
+        note?: string;
+    };
     highlights: string[];
     category: 'fullstack' | 'frontend' | 'backend' | 'ai' | 'mobile';
 }
@@ -30,12 +36,18 @@ export interface Skill {
     icon: string;
 }
 
+export interface SkillGroup {
+    title: string;
+    items: string[];
+}
+
 export interface Experience {
     id: string;
     company: string;
     position: string;
     startDate: string;
     endDate: string;
+    duration?: string;
     description: string[];
     technologies: string[];
 }
