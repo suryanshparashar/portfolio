@@ -1,0 +1,20 @@
+{
+    "redirects": [
+        {
+            "source": "/linkedin",
+            "destination": "https://linkedin.com/in/suryanshparashar-dev",
+            "permanent": true
+        },
+        {
+            "source": "/github",
+            "destination": "https://github.com/suryanshparashar",
+            "permanent": true
+        }
+    ],
+    "rewrites": [
+        {
+            "source": "/(.*)",
+            "destination": "/index.html"
+        }
+    ]
+}
