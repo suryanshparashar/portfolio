@@ -1,16 +1,13 @@
 {
     "name": "portfolio-web",
     "private": true,
-    "version": "1.2.1",
+    "version": "1.2.2",
     "type": "module",
     "scripts": {
         "dev": "vite",
         "build": "vite build",
         "lint": "eslint .",
-        "preview": "vite preview",
-        "preversion": "npm run lint",
-        "version": "npm install --prefix ../.. git add -A",
-        "postversion": "git push --follow-tags"
+        "preview": "vite preview"
     },
     "dependencies": {
         "framer-motion": "^12.23.24",

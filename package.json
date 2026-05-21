@@ -6,7 +6,7 @@
         "web"
     ],
     "scripts": {
-        "version:web": "npm version -w web --tag-version-prefix=web/v"
+        "release": "node release.mjs"
     },
     "repository": {
         "type": "git",
