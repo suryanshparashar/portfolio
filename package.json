@@ -1,0 +1,28 @@
+{
+    "name": "portfolio",
+    "private": true,
+    "main": "index.js",
+    "workspaces": [
+        "web"
+    ],
+    "scripts": {
+        "version:web": "npm version -w web --tag-version-prefix=web/v"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/suryanshparashar/portfolio.git"
+    },
+    "keywords": [
+        "Suryansh Parashar",
+        "Portfolio",
+        "Web Development",
+        "Full-Stack AI Engineer"
+    ],
+    "author": "Suryansh Parashar",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/suryanshparashar/portfolio/issues"
+    },
+    "homepage": "https://suryanshparashar.com",
+    "description": "Personal portfolio website for Suryansh Parashar, showcasing projects, experience, and skills in web development and AI engineering."
+}

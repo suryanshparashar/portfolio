@@ -1,204 +1,48 @@
 import { useEffect, useRef, useState, type MouseEvent } from "react"
+import { useInView } from "../hooks/useInView"
 import { Link } from "react-router-dom"
 import {
     ArrowUpRight,
     Check,
     Copy,
     Github,
-    Linkedin,
-    Mail,
     KeyRound,
     Terminal,
-    Sparkles,
-    Code2,
-    Brain,
-    Wrench,
     X,
 } from "lucide-react"
+import {
+    LANDING_META,
+    NAV,
+    PROJECTS,
+    SKILLS,
+    EXPERIENCE,
+    CONTACT_DESC,
+    CONTACT_LINKS,
+    type Project,
+} from "../data/landing"
 
-type MetaTag = {
-    name?: string
-    property?: string
-    content: string
-}
-
-const LANDING_META: MetaTag[] = [
-    {
-        name: "description",
-        content:
-            "Full-Stack AI Engineer building production AI-native systems and SaaS products end-to-end.",
-    },
-    {
-        property: "og:title",
-        content: "Suryansh Parashar | Full-Stack AI Engineer",
-    },
-    {
-        property: "og:description",
-        content:
-            "I engineer full-stack applications and AI-native systems that ship and work.",
-    },
-    { property: "og:type", content: "website" },
-    { property: "og:image", content: "/og-image.jpg" },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:image", content: "/og-image.jpg" },
-]
-
-const NAV = [
-    { label: "Projects", href: "#projects" },
-    { label: "Experience", href: "#experience" },
-    { label: "Uses", href: "/uses" },
-    { label: "Contact", href: "#contact" },
-]
-
-type Project = {
-    title: string
-    role: string
-    tagline: string
-    description: string
-    stack: string[]
-    live?: string
-    github?: string
-    sourceOnRequest?: boolean
-    qa?: { username: string; password: string }
-    highlight?: string
-}
-
-const PROJECTS: Project[] = [
-    {
-        title: "Samsmriti",
-        role: "Full-Stack AI Engineer",
-        tagline: "A live GATE revision tool built and maintained solo.",
-        description:
-            "Multi-agent system that generates adaptive study plans, explanations, GATE perspectives, common mistakes, and quick points. Designed, built, and deployed end-to-end.",
-        stack: [
-            "MongoDB",
-            "Express.js",
-            "React",
-            "Node.js",
-            "JavaScript",
-            "LangChain",
-            "LangGraph",
-            "Pinecone",
-            "Razorpay",
-        ],
-        live: "https://samsmriti.com",
-        // github: "https://github.com/suryanshparashar",
-        sourceOnRequest: true,
-        qa: { username: "qa@example.com", password: "demo-pass" },
-        highlight: "Live SaaS",
-    },
-    {
-        title: "QuizMitra",
-        role: "Full-Stack AI Engineer",
-        tagline: "Auto-graded assessments with AI-driven feedback loops.",
-        description:
-            "Multi-agentic pipeline that authors, evaluates, and rubric-scores submissions with explainable feedback for students as well as instructors.",
-        stack: [
-            "MongoDB",
-            "Express.js",
-            "React",
-            "Node.js",
-            "Sarvam AI",
-            "Google AI",
-            "Zoho OAuth2",
-        ],
-        live: "https://quizmitra.suryanshparashar.com/",
-        // github: "https://github.com/suryanshparashar",
-        sourceOnRequest: true,
-        qa: { username: "QA-FAC-001", password: "sparashar" },
-    },
-    {
-        title: "Artha Nirikshana",
-        role: "Full-Stack Developer",
-        tagline: "MERN budgeting app with categorized insights.",
-        description:
-            "Full MERN stack with JWT auth, recurring transactions, and category analytics. Designed, built, and deployed end-to-end.",
-        stack: [
-            "MongoDB (with Aggregation Pipeline)",
-            "Express.js",
-            "React",
-            "Node.js",
-            "Recharts",
-            "Zoho OAuth2",
-            "Google OAuth2",
-        ],
-        live: "https://artha-nirikshana.suryanshparashar.com/",
-        // github: "https://github.com/suryanshparashar",
-        sourceOnRequest: true,
-        qa: { username: "qa.artha.tester", password: "QA@ArthaTest#2025!" },
-    },
-    {
-        title: "RakshaSutra",
-        role: "Browser Extension Developer",
-        tagline: "Zero-trust password generator that lives in your toolbar.",
-        description:
-            "Chromium extension generating cryptographically strong, configurable passwords with zero data collection, real-time entropy display, and one-click copy. Two modes: Syllable-based for memorability, random character-based for max security.",
-        stack: ["TypeScript", "Vite", "Web Crypto API", "Manifest V3"],
-        live: "https://rakshasutra.suryanshparashar.com/",
-        github: "https://github.com/suryanshparashar/RakshaSutra-Password-Generator",
-        sourceOnRequest: false,
-    },
-]
-
-const SKILLS = [
-    {
-        label: "Languages",
-        icon: Code2,
-        items: ["JavaScript", "TypeScript", "Java", "Python", "NoSQL"],
-    },
-    {
-        label: "Frameworks",
-        icon: Sparkles,
-        items: ["Express.js", "React", "Node.js", "MongoDB"],
-    },
-    {
-        label: "AI / Agents",
-        icon: Brain,
-        items: [
-            "LangChain",
-            "LangGraph",
-            "LangSmith",
-            "RAG",
-            "Vector DBs",
-            "Multi-agent systems",
-        ],
-    },
-    {
-        label: "Dev Tools",
-        icon: Wrench,
-        items: ["Git/GitHub", "npm", "Postman", "Render", "Vercel", "VS Code"],
-    },
-]
-
-function applyMeta(title: string, meta: MetaTag[]) {
+// ── Meta helper ───────────────────────────
+function applyMeta(title: string, meta: typeof LANDING_META) {
     document.title = title
-
     meta.forEach((tag) => {
         const selector = tag.name
             ? `meta[name="${tag.name}"]`
             : tag.property
               ? `meta[property="${tag.property}"]`
               : null
-
-        if (!selector) {
-            return
+        if (!selector) return
+        let el = document.querySelector(selector)
+        if (!el) {
+            el = document.createElement("meta")
+            if (tag.name) el.setAttribute("name", tag.name)
+            if (tag.property) el.setAttribute("property", tag.property)
+            document.head.appendChild(el)
         }
-
-        let element = document.querySelector(selector)
-        if (!element) {
-            element = document.createElement("meta")
-            if (tag.name) {
-                element.setAttribute("name", tag.name)
-            }
-            if (tag.property) {
-                element.setAttribute("property", tag.property)
-            }
-            document.head.appendChild(element)
-        }
-        element.setAttribute("content", tag.content)
+        el.setAttribute("content", tag.content)
     })
 }
 
+// ── Page ──────────────────────────────────
 export default function Landing() {
     useEffect(() => {
         applyMeta("Suryansh Parashar | Full-Stack AI Engineer", LANDING_META)
@@ -218,6 +62,7 @@ export default function Landing() {
     )
 }
 
+// ── Nav ───────────────────────────────────
 function Nav() {
     return (
         <header className="sticky top-0 z-40 border-b border-border/60 bg-background/70 backdrop-blur-md">
@@ -227,9 +72,8 @@ function Nav() {
                     className="flex items-center gap-2 font-display text-sm font-semibold"
                 >
                     <span className="inline-block size-2 rounded-full bg-primary glow-teal" />
-                    {/* <span>Suryansh Parashar</span> */}
                     <span>suryansh.parashar</span>
-                    <span className="text-primary cursor">_</span>
+                    <span className="text-primary sp-cursor">_</span>
                 </a>
                 <nav className="flex items-center gap-1 text-sm">
                     {NAV.map((n) =>
@@ -257,6 +101,7 @@ function Nav() {
     )
 }
 
+// ── Hero — no reveal, first paint ─────────
 function Hero() {
     const gridRef = useRef<HTMLElement | null>(null)
     const [activeCell, setActiveCell] = useState<{
@@ -432,6 +277,7 @@ function Hero() {
     )
 }
 
+// ── Shared section header ─────────────────
 function SectionHeader({ kicker, title }: { kicker: string; title: string }) {
     return (
         <div className="mb-12">
@@ -445,12 +291,23 @@ function SectionHeader({ kicker, title }: { kicker: string; title: string }) {
     )
 }
 
+// ── About ─────────────────────────────────
 function About() {
+    const { ref, inView } = useInView()
+
     return (
         <section id="about" className="border-b border-border/60">
-            <div className="mx-auto max-w-6xl px-5 py-24">
-                <SectionHeader kicker="// about" title="What I'm building." />
-                <div className="grid gap-8 text-lg leading-relaxed text-muted-foreground md:grid-cols-3">
+            <div ref={ref} className="mx-auto max-w-6xl px-5 py-24">
+                <div className={`reveal ${inView ? "visible" : ""}`}>
+                    <SectionHeader
+                        kicker="// about"
+                        title="What I'm building."
+                    />
+                </div>
+                <div
+                    className={`grid gap-8 text-lg leading-relaxed text-muted-foreground md:grid-cols-3 reveal ${inView ? "visible" : ""}`}
+                    style={{ transitionDelay: inView ? "0.1s" : "0s" }}
+                >
                     <p className="md:col-span-2 text-justify">
                         I build AI-native products end-to-end, from the model
                         orchestration layer to the pixels users tap. Lately I've
@@ -471,54 +328,55 @@ function About() {
     )
 }
 
+// ── Projects ──────────────────────────────
 function Projects() {
     const [activeProject, setActiveProject] = useState<Project | null>(null)
+    const { ref, inView } = useInView()
 
     useEffect(() => {
-        const handlePointerDown = (event: PointerEvent) => {
-            if (!activeProject) {
-                return
+        const handlePointerDown = (e: PointerEvent) => {
+            if (!activeProject) return
+            if (
+                !(e.target as HTMLElement)?.closest(
+                    '[data-credentials-root="true"]'
+                )
+            ) {
+                setActiveProject(null)
             }
-
-            const target = event.target as HTMLElement | null
-            if (!target) {
-                return
-            }
-
-            if (target.closest('[data-credentials-root="true"]')) {
-                return
-            }
-
-            setActiveProject(null)
         }
-
         document.addEventListener("pointerdown", handlePointerDown)
-        return () => {
+        return () =>
             document.removeEventListener("pointerdown", handlePointerDown)
-        }
     }, [activeProject])
-
-    const handleToggleCredentials = (project: Project) => {
-        setActiveProject((prev) =>
-            prev?.title === project.title ? null : project
-        )
-    }
 
     return (
         <section id="projects" className="border-b border-border/60">
             <div className="mx-auto max-w-6xl px-5 py-24">
                 <SectionHeader kicker="// projects" title="Selected work." />
-                <div className="grid gap-5 md:grid-cols-2">
-                    {PROJECTS.map((p) => (
-                        <ProjectCard
+                {/* ref on the grid — fires once when grid scrolls into view */}
+                <div ref={ref} className="grid gap-5 md:grid-cols-2">
+                    {PROJECTS.map((p, i) => (
+                        // Wrapper div carries the reveal; ProjectCard is untouched
+                        <div
                             key={p.title}
-                            project={p}
-                            isActive={activeProject?.title === p.title}
-                            onToggleCredentials={() =>
-                                handleToggleCredentials(p)
-                            }
-                            onCloseCredentials={() => setActiveProject(null)}
-                        />
+                            className={`reveal ${inView ? "visible" : ""}`}
+                            style={{
+                                transitionDelay: inView ? `${i * 0.1}s` : "0s",
+                            }}
+                        >
+                            <ProjectCard
+                                project={p}
+                                isActive={activeProject?.title === p.title}
+                                onToggleCredentials={() =>
+                                    setActiveProject((prev) =>
+                                        prev?.title === p.title ? null : p
+                                    )
+                                }
+                                onCloseCredentials={() =>
+                                    setActiveProject(null)
+                                }
+                            />
+                        </div>
                     ))}
                 </div>
             </div>
@@ -767,27 +625,31 @@ function CredentialsPopover({
     )
 }
 
+// ── Experience ────────────────────────────
 function Experience() {
+    const { ref, inView } = useInView<HTMLOListElement>()
+
     return (
         <section id="experience" className="border-b border-border/60">
             <div className="mx-auto max-w-6xl px-5 py-24">
-                <SectionHeader
-                    kicker="// experience"
-                    title="Where I've worked."
-                />
-                <ol className="relative border-l border-border pl-6">
-                    <TimelineItem
-                        role="Freelance Frontend Developer"
-                        org="Prxis Tech Solutions"
-                        period="6 months · aug 2024 — jan 2025"
-                        blurb="Shipped marketing site, and internal tooling. Owned design-to-deploy. Improved Lighthouse score from 62 → 98."
+                <div className={`reveal ${inView ? "visible" : ""}`}>
+                    <SectionHeader
+                        kicker="// experience"
+                        title="Where I've worked."
                     />
-                    <TimelineItem
-                        role="B.Tech in CSE (AI & ML)"
-                        org="Vellore Institute of Technology"
-                        period="Graduating 2026"
-                        blurb="Coursework in programming, systems, ML, NLP, and deep learning. Built side projects from day one."
-                    />
+                </div>
+                <ol ref={ref} className="relative border-l border-border pl-6">
+                    {EXPERIENCE.map((item, i) => (
+                        <div
+                            key={item.org}
+                            className={`mb-8 last:mb-0 reveal ${inView ? "visible" : ""}`}
+                            style={{
+                                transitionDelay: inView ? `${i * 0.12}s` : "0s",
+                            }}
+                        >
+                            <TimelineItem {...item} />
+                        </div>
+                    ))}
                 </ol>
             </div>
         </section>
@@ -799,15 +661,13 @@ function TimelineItem({
     org,
     period,
     blurb,
-}: {
-    role: string
-    org: string
-    period: string
-    blurb: string
-}) {
+    active,
+}: (typeof EXPERIENCE)[0]) {
     return (
-        <li className="mb-8 last:mb-0">
-            <span className="absolute -left-[6.5px] mt-1.5 size-3 rounded-full border-2 border-background bg-primary" />
+        <li>
+            <span
+                className={`absolute -left-[6.5px] mt-1.5 size-3 rounded-full border-2 border-background ${active ? "bg-primary" : "bg-muted-foreground/40"}`}
+            />
             <div className="font-mono text-xs text-muted-foreground">
                 {period}
             </div>
@@ -821,16 +681,27 @@ function TimelineItem({
     )
 }
 
+// ── Skills ────────────────────────────────
 function Skills() {
+    const { ref, inView } = useInView()
+
     return (
         <section id="skills" className="border-b border-border/60">
             <div className="mx-auto max-w-6xl px-5 py-24">
-                <SectionHeader kicker="// skills" title="The toolkit." />
-                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-                    {SKILLS.map(({ label, icon: Icon, items }) => (
+                <div className={`reveal ${inView ? "visible" : ""}`}>
+                    <SectionHeader kicker="// skills" title="The toolkit." />
+                </div>
+                <div
+                    ref={ref}
+                    className="grid gap-4 md:grid-cols-2 lg:grid-cols-5 sp-grid"
+                >
+                    {SKILLS.map(({ label, icon: Icon, items }, i) => (
                         <div
                             key={label}
-                            className="rounded-xl border border-border bg-card p-5"
+                            className={`rounded-xl border border-border bg-card p-5 reveal ${inView ? "visible" : ""}`}
+                            style={{
+                                transitionDelay: inView ? `${i * 0.08}s` : "0s",
+                            }}
                         >
                             <div className="flex items-center gap-2">
                                 <Icon className="size-4 text-primary" />
@@ -838,13 +709,13 @@ function Skills() {
                                     {label}
                                 </h3>
                             </div>
-                            <ul className="mt-4 space-y-1.5 text-sm text-muted-foreground">
-                                {items.map((i) => (
+                            <ul className="mt-4 space-y-1.5">
+                                {items.map((item) => (
                                     <li
-                                        key={i}
-                                        className="font-mono text-[13px]"
+                                        key={item}
+                                        className="font-mono text-[13px] text-muted-foreground"
                                     >
-                                        {i}
+                                        {item}
                                     </li>
                                 ))}
                             </ul>
@@ -856,52 +727,65 @@ function Skills() {
     )
 }
 
+// ── Contact ───────────────────────────────
 function Contact() {
+    const { ref, inView } = useInView()
+
     return (
         <section id="contact" className="relative overflow-hidden">
             <div className="absolute inset-0 grid-bg opacity-30" aria-hidden />
-            <div className="relative mx-auto max-w-6xl px-5 py-28 text-center">
-                <div className="font-mono text-xs uppercase tracking-widest text-primary">
-                    // contact
+            <div
+                ref={ref}
+                className="relative mx-auto max-w-6xl px-5 py-28 text-center"
+            >
+                <div className={`reveal ${inView ? "visible" : ""}`}>
+                    <div className="font-mono text-xs uppercase tracking-widest text-primary">
+                        // contact
+                    </div>
+                    <h2 className="mt-2 font-display text-4xl font-semibold tracking-tight md:text-5xl">
+                        Let's build something
+                        <br />
+                        <span className="text-primary">that ships.</span>
+                    </h2>
+                    <p className="mx-auto mt-5 max-w-md text-muted-foreground">
+                        {CONTACT_DESC}
+                    </p>
                 </div>
-                <h2 className="mt-2 font-display text-4xl font-semibold tracking-tight md:text-5xl">
-                    Let's build something
-                    <br />
-                    <span className="text-primary">that ships.</span>
-                </h2>
-                <p className="mx-auto mt-5 max-w-md text-muted-foreground">
-                    Open to roles, contract work, and serious collaborations on
-                    AI-native products.
-                </p>
-                <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-                    <a
-                        href="mailto:sparashar2002@gmail.com"
-                        className="inline-flex items-center gap-2 rounded-md bg-primary px-5 py-3 text-sm font-medium text-primary-foreground"
-                    >
-                        <Mail className="size-4" /> sparashar2002@gmail.com
-                    </a>
-                    <a
-                        href="https://suryanshparashar.com/linkedin"
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex items-center gap-2 rounded-md border border-border bg-card/60 px-5 py-3 text-sm font-medium hover:bg-card"
-                    >
-                        <Linkedin className="size-4" /> LinkedIn
-                    </a>
-                    <a
-                        href="https://suryanshparashar.com/github"
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex items-center gap-2 rounded-md border border-border bg-card/60 px-5 py-3 text-sm font-medium hover:bg-card"
-                    >
-                        <Github className="size-4" /> GitHub
-                    </a>
+                <div
+                    className={`mt-10 flex flex-wrap items-center justify-center gap-3 reveal ${inView ? "visible" : ""}`}
+                    style={{ transitionDelay: inView ? "0.15s" : "0s" }}
+                >
+                    {CONTACT_LINKS.map((link) => {
+                        const Icon = link.icon
+                        const isPrimary = !!link.display
+                        return (
+                            <a
+                                key={link.label}
+                                href={link.href}
+                                target={
+                                    link.href.startsWith("mailto")
+                                        ? undefined
+                                        : "_blank"
+                                }
+                                rel="noreferrer"
+                                className={
+                                    isPrimary
+                                        ? "inline-flex items-center gap-2 rounded-md bg-primary px-5 py-3 text-sm font-medium text-primary-foreground"
+                                        : "inline-flex items-center gap-2 rounded-md border border-border bg-card/60 px-5 py-3 text-sm font-medium hover:bg-card"
+                                }
+                            >
+                                <Icon className="size-4" />
+                                {link.display ?? link.label}
+                            </a>
+                        )
+                    })}
                 </div>
             </div>
         </section>
     )
 }
 
+// ── Footer ────────────────────────────────
 function Footer() {
     return (
         <footer className="border-t border-border/60">
