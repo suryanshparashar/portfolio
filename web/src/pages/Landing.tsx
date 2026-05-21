@@ -66,7 +66,7 @@ export default function Landing() {
 function Nav() {
     return (
         <header className="sticky top-0 z-40 border-b border-border/60 bg-background/70 backdrop-blur-md">
-            <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-5">
+            <div className="mx-auto flex flex-wrap items-center justify-center gap-2 max-w-6xl px-6 py-3 md:h-14 md:justify-between md:px-5 md:py-0">
                 <a
                     href="#top"
                     className="flex items-center gap-2 font-display text-sm font-semibold"
