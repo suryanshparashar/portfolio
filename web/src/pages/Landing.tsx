@@ -101,7 +101,7 @@ function Nav() {
     )
 }
 
-// ── Hero ───────────────────────────────────
+// ── Hero ──────────────────────────────────
 function Hero() {
     const gridRef = useRef<HTMLElement | null>(null)
     const [activeCell, setActiveCell] = useState<{
@@ -396,7 +396,7 @@ function ProjectCard({
     onCloseCredentials: () => void
 }) {
     return (
-        <article className="group relative flex flex-col gap-5 rounded-xl border border-border bg-card p-6 transition-colors hover:border-primary/40">
+        <article className="group relative flex h-full flex-col gap-5 rounded-xl border border-border bg-card p-6 transition-colors hover:border-primary/40">
             <header className="flex items-start justify-between gap-4">
                 <div>
                     <div className="font-mono text-[11px] uppercase tracking-widest text-primary">
