@@ -1,16 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* @import "tailwindcss" source(none); */
-/* @source "../src"; */
 
 :root {
     --radius: 0.75rem;
     --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
     --font-display: "Sora", "Inter", sans-serif;
     --font-mono: "JetBrains Mono", ui-monospace, monospace;
+    
     /* Dark charcoal + electric teal — single theme */
     --background: 0.16 0.012 240;
     --foreground: 0.97 0.005 240;
@@ -61,16 +60,27 @@
         font-family: var(--font-display);
         letter-spacing: -0.02em;
     }
+
     .font-mono {
         font-family: var(--font-mono);
     }
+
     .grid-bg {
         background-image:
-            linear-gradient(to right, #ffffff0a 1px, transparent 1px),
-            linear-gradient(to bottom, #ffffff0a 1px, transparent 1px);
+            linear-gradient(
+                to right,
+                oklch(var(--foreground) / 0.04) 1px,
+                transparent 1px
+            ),
+            linear-gradient(
+                to bottom,
+                oklch(var(--foreground) / 0.04) 1px,
+                transparent 1px
+            );
         background-size: 48px 48px;
     }
-    .glow-teal {
+
+    .glow-primary {
         box-shadow: 0 0 60px -10px oklch(var(--primary) / 0.4);
     }
 
@@ -97,23 +107,6 @@
     .reveal.visible {
         opacity: 1;
         transform: none;
-    }
-
-    /* stagger delays */
-    .d1 {
-        transition-delay: 0.07s;
-    }
-    .d2 {
-        transition-delay: 0.14s;
-    }
-    .d3 {
-        transition-delay: 0.21s;
-    }
-    .d4 {
-        transition-delay: 0.28s;
-    }
-    .d5 {
-        transition-delay: 0.35s;
     }
 
     @keyframes blink {

@@ -71,7 +71,7 @@ function Nav() {
                     href="#top"
                     className="flex items-center gap-2 font-display text-sm font-semibold"
                 >
-                    <span className="inline-block size-2 rounded-full bg-primary glow-teal" />
+                    <span className="inline-block size-2 rounded-full bg-primary glow-primary" />
                     <span>suryansh.parashar</span>
                     <span className="text-primary sp-cursor">_</span>
                 </a>
@@ -101,7 +101,7 @@ function Nav() {
     )
 }
 
-// ── Hero — no reveal, first paint ─────────
+// ── Hero ───────────────────────────────────
 function Hero() {
     const gridRef = useRef<HTMLElement | null>(null)
     const [activeCell, setActiveCell] = useState<{
