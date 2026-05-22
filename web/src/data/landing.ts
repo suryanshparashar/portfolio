@@ -54,16 +54,16 @@ export const LANDING_META: MetaTag[] = [
     { property: "og:title", content: "Suryansh Parashar | Full-Stack AI Engineer" },
     { property: "og:description", content: "I engineer full-stack applications and AI-native systems that ship and work." },
     { property: "og:type", content: "website" },
-    { property: "og:image", content: "/og-image.jpg" },
+    { property: "og:image", content: "/og-image.png" },
     { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:image", content: "/og-image.jpg" },
+    { name: "twitter:image", content: "/og-image.png" },
 ]
 
 // ── Nav ───────────────────────────────────
 export const NAV: NavItem[] = [
     { label: "Projects",   href: "#projects"   },
     { label: "Experience", href: "#experience" },
-    { label: "Uses",       href: "/uses"       },
+    { label: "Skills",     href: "#skills"     },
     { label: "Contact",    href: "#contact"    },
 ]
 

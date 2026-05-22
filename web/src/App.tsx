@@ -58,7 +58,6 @@ function NotFound() {
 }
 
 function ErrorFallback({ error, reset }: { error: Error; reset: () => void }) {
-    console.error(error)
 
     return (
         <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -102,7 +101,7 @@ function ExternalRedirect({ to }: { to: string }) {
                 </h1>
                 <p className="mt-2 text-sm text-muted-foreground">
                     If you are not redirected,{" "}
-                    <a href={to} className="text-primary hover:underline">
+                    <a href={to} rel="noopener noreferrer" className="text-primary hover:underline">
                         click here
                     </a>
                     .
