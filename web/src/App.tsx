@@ -57,7 +57,7 @@ function NotFound() {
     )
 }
 
-function ErrorFallback({ error, reset }: { error: Error; reset: () => void }) {
+function ErrorFallback({ reset }: { error: Error; reset: () => void }) {
 
     return (
         <div className="flex min-h-screen items-center justify-center bg-background px-4">
