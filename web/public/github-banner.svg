@@ -67,6 +67,6 @@
     text-anchor="end">2026</text>
 
   <!-- Separator line -->
-  <line x1="525" y1="60" x2="525" y2="110"
+  <line x1="535" y1="60" x2="535" y2="110"
     stroke="#00e5cc" stroke-opacity="0.25" stroke-width="1"/>
 </svg>
