@@ -120,7 +120,7 @@ export default function App() {
                     <Route
                         path="/linkedin"
                         element={
-                            <ExternalRedirect to="https://linkedin.com/in/suryanshparashar-dev" />
+                            <ExternalRedirect to="https://linkedin.com/in/suryansh-parashar" />
                         }
                     />
                     <Route

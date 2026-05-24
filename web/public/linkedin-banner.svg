@@ -1,0 +1,85 @@
+<svg width="1584" height="396" viewBox="0 0 1584 396"
+  xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1584" y2="396"
+      gradientUnits="userSpaceOnUse">
+      <stop offset="0%"   stop-color="#0c0f12"/>
+      <stop offset="100%" stop-color="#080a0c"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1"
+      gradientUnits="userSpaceOnUse"
+      gradientTransform="translate(0 0) scale(420)">
+      <stop offset="0%"   stop-color="#00e1e2" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#00e1e2" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M48 0L0 0 0 48" fill="none"
+        stroke="white" stroke-opacity="0.05" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <!-- Background layers -->
+  <rect width="1584" height="396" rx="10" fill="url(#bg)"/>
+  <rect width="1584" height="396" rx="10" fill="url(#grid)"/>
+  <rect width="1584" height="396" rx="10" fill="url(#glow)"/>
+  <rect x="0.5" y="0.5" width="1583" height="395" rx="9.5"
+    stroke="white" stroke-opacity="0.07" fill="none"/>
+
+  <!-- Teal dot — same as nav -->
+  <circle cx="100" cy="112" r="8" fill="#00e1e2"/>
+
+  <!-- Name -->
+  <text x="125" y="125"
+    font-family="'Sora','Inter',sans-serif"
+    font-size="48" font-weight="800"
+    letter-spacing="-0.5"
+    fill="#e8e8e6">suryansh.parashar</text>
+
+  <!-- Underscore -->
+  <line x1="620" y1="125" x2="640" y2="125"
+    stroke="#00e1e2" stroke-width="4"/>
+
+  <!-- Separator line -->
+  <line x1="755" y1="100" x2="755" y2="275"
+    stroke="#00e1e2" stroke-opacity="0.25" stroke-width="1"/>
+
+  <!-- Role -->
+  <text x="1459" y="125"
+    font-family="'Inter',sans-serif"
+    font-size="20" font-weight="400"
+    fill="#00e1e2" letter-spacing="0.3"
+    text-anchor="end">
+    Full-Stack AI Engineer
+  </text>
+
+  <!-- Tagline -->
+  <text x="1459" y="155"
+    font-family="'Inter',sans-serif"
+    font-size="18" font-weight="600"
+    fill="#4a5563"
+    text-anchor="end">
+    Building AI-native systems end-to-end · full ownership, start to finish
+  </text>
+
+  <!-- Availability -->
+  <text x="1459" y="216"
+    font-family="'Inter',sans-serif"
+    font-size="15" font-weight="800"
+    fill="rgb(74, 85, 99)"
+    text-anchor="end" letter-spacing="1">AVAILABLE FOR SELECT WORK</text>
+
+  <text x="1459" y="246"
+    font-family="'Inter',sans-serif"
+    font-size="22" font-weight="700"
+    fill="#e8e8e6"
+    text-anchor="end">2026</text>
+
+
+  <!-- URL -->
+  <text x="1459" y="271"
+    font-family="'Inter',sans-serif"
+    font-size="20" font-weight="800"
+    fill="#4a5563"
+    text-anchor="end">
+    suryanshparashar.com</text>
+</svg>
