@@ -72,9 +72,9 @@ export const PROJECTS: Project[] = [
     {
         title: "Samsmriti",
         role: "Full-Stack AI Engineer",
-        tagline: "A live GATE revision tool built and maintained solo.",
+        tagline: "A live GATE revision tool; built, shipped, and actively maintained.",
         description:
-            "Multi-agent system that generates adaptive study plans, explanations, GATE perspectives, common mistakes, and quick points. Designed, built, and deployed end-to-end.",
+            "Multi-agent system that generates adaptive study plans, explanations, GATE perspectives, common mistakes, and quick points. Full ownership, architecture to deployment.",
         stack: ["MongoDB", "Express.js", "React", "Node.js", "JavaScript", "LangChain", "LangGraph", "Pinecone", "Razorpay"],
         live: "https://samsmriti.com",
         sourceOnRequest: true,
@@ -97,7 +97,7 @@ export const PROJECTS: Project[] = [
         role: "Full-Stack Developer",
         tagline: "MERN budgeting app with categorized insights.",
         description:
-            "Full MERN stack with JWT auth, recurring transactions, and category analytics. Designed, built, and deployed end-to-end.",
+            "Full MERN stack with JWT auth, recurring transactions, and category analytics. Full ownership, architecture to deployment.",
         stack: ["MongoDB (with Aggregation Pipeline)", "Express.js", "React", "Node.js", "Recharts", "Zoho OAuth2", "Google OAuth2"],
         live: "https://artha-nirikshana.suryanshparashar.com/",
         sourceOnRequest: true,
@@ -126,7 +126,7 @@ export const SKILLS: SkillCategory[] = [
     {
         label: "Full-Stack",
         icon: Layers,
-        items: ["React", "Node.js", "Express.js", "MongoDB", "Aggregation Pipeline", "Recharts", "Vite"],
+        items: ["React", "Node.js", "Express.js", "MongoDB (with Aggregation Pipeline)", "Recharts", "Vite"],
     },
     {
         label: "AI / Agents",

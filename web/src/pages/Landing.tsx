@@ -310,12 +310,11 @@ function About() {
                 >
                     <p className="md:col-span-2 text-justify">
                         I build AI-native products end-to-end, from the model
-                        orchestration layer to the pixels users tap. Lately I've
+                        orchestration layer to the pixels users tap. I've
                         been shipping multi-agent systems that do real work:
                         assessments that grade themselves, study tools that
                         adapt to the student, browser extensions that respect
-                        the user. Solo developer. Designed, built, and deployed
-                        end-to-end.
+                        the user. I own the full-stack: architecture decisions, engineering, and deployment.
                     </p>
                     <p className="text-base">
                         I care about latency budgets, clean abstractions, and
