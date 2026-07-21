@@ -72,10 +72,10 @@ export const PROJECTS: Project[] = [
     {
         title: "Samsmriti",
         role: "Full-Stack AI Engineer",
-        tagline: "A live GATE revision tool; built, shipped, and actively maintained.",
+        tagline: "Daily GATE PYQ practice with AI explainations; live and actively maintained.",
         description:
-            "Multi-agent system that generates adaptive study plans, explanations, GATE perspectives, common mistakes, and quick points. Full ownership, architecture to deployment.",
-        stack: ["MongoDB", "Express.js", "React", "Node.js", "JavaScript", "LangChain", "LangGraph", "Pinecone", "Razorpay"],
+            "Serves 10 previous-year questions dayly, targeted at each student's weakest topics. A RAG pipeline indexes the student's own notes and grounds every mistake explanation in them. LangGraph-orchestrated agents, end to end. Full ownership, architecture to deployment.",
+        stack: ["MongoDB (Atlas Vector Search)", "Express.js", "React", "Node.js", "JavaScript", "LangChain", "LangGraph", "Razorpay"],
         live: "https://samsmriti.com",
         sourceOnRequest: true,
         qa: { username: "qa@example.com", password: "demo-pass" },
